@@ -35,6 +35,12 @@ public class FactsItemsRetriever implements FactsItemsListener {
         return (asyncFactsRetriever == null);
     }
 
+
+    private void setFactRetrieverNotRetrieving() {
+        asyncFactsRetriever = null;
+    }
+
+
     private void retrieve(String uri) {
         asyncFactsRetriever = new AsyncFactsRetriever();
         asyncFactsRetriever.fetch(uri, this);
@@ -47,8 +53,12 @@ public class FactsItemsRetriever implements FactsItemsListener {
 
     @Override
     public void factItemsUpdated(FactsList factsList) {
+
         for (FactsItemsListener factsItemsListener : factsItemsListeners) {
             factsItemsListener.factItemsUpdated(factsList);
         }
+        setFactRetrieverNotRetrieving();
     }
+
+
 }
