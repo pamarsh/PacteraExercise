@@ -9,7 +9,6 @@ public class FactsRecord {
     private String description ;
     private String imageHref ;
 
-
     public FactsRecord(String title, String description, String imageHref) {
         this.title = title;
         this.description = description;
@@ -26,5 +25,10 @@ public class FactsRecord {
 
     public String getImageHref() {
         return imageHref;
+    }
+
+    public boolean isEmpty() {
+        return (title == null && description == null && imageHref == null ) ||
+                ("".equals(title) && "".equals(description) && "".equals(imageHref));
     }
 }

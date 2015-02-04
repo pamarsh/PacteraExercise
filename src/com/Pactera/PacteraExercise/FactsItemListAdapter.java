@@ -7,14 +7,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.Pactera.PacteraExercise.model.FactsList;
 import com.Pactera.PacteraExercise.model.FactsRecord;
+import com.Pactera.PacteraExercise.retriever.FactsItemsListener;
 
 import java.util.ArrayList;
 
 /**
- * Created by paul on 5/02/15.
+ * Converter class. This will insert the received data into the list view items as the list view
+ * requires. It listens for FactsItems Data from the remote server via the FactItemsReceiver and
+ * notifies itself of the change. The notification will trigger for all displayed items to redraw
+ * themselves with the new data
  */
-public class FactsItemListAdapter  extends BaseAdapter {
+public class FactsItemListAdapter extends BaseAdapter implements FactsItemsListener {
 
     // Contains the current list of facts that are displayed
     ArrayList<FactsRecord> factsRecords = new ArrayList<FactsRecord>();
@@ -24,7 +29,7 @@ public class FactsItemListAdapter  extends BaseAdapter {
     public FactsItemListAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
 
-        for (int i = 0 ; i < 20 ; i++ ) {
+        for (int i = 0; i < 20; i++) {
             factsRecords.add(new FactsRecord("title" + i, "Description " + i + " The quick brown fox jumped over the lazy dog over and over again", "URI"));
         }
     }
@@ -49,12 +54,27 @@ public class FactsItemListAdapter  extends BaseAdapter {
 
         FactsRecord record = factsRecords.get(position);
 
-        if ( convertView == null ) {
+        if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.facts_item, null);
-            ((TextView) convertView.findViewById(R.id.item_title)).setText(record.getTitle());
-            ((TextView) convertView.findViewById(R.id.item_description)).setText(record.getDescription());
-            ((ImageView) convertView.findViewById(R.id.item_picture)).setImageResource(android.R.color.transparent);
         }
+        ((TextView) convertView.findViewById(R.id.item_title)).setText(record.getTitle());
+        ((TextView) convertView.findViewById(R.id.item_description)).setText(record.getDescription());
+        ((ImageView) convertView.findViewById(R.id.item_picture)).setImageResource(android.R.color.transparent);
+
         return convertView;
+    }
+
+    @Override
+    public void factItemsUpdated(FactsList factsList) {
+        factsRecords.clear();
+        // Reload the data with new facts
+        factsRecords.clear();
+        for (FactsRecord factsRecord : factsList.getRows()) {
+            if (!factsRecord.isEmpty()) {
+                factsRecords.add(factsRecord);
+            }
+        }
+
+        this.notifyDataSetChanged();
     }
 }
