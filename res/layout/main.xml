@@ -4,5 +4,15 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
+    <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:id="@+id/facts_list"/>
+    <Button android:id="@+id/resync_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/resync"/>
 </LinearLayout>
 
