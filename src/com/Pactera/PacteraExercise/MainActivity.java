@@ -1,12 +1,14 @@
 package com.Pactera.PacteraExercise;
 
 import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import com.Pactera.PacteraExercise.model.FactsList;
-import com.Pactera.PacteraExercise.retriever.FactsItemsListener;
-import com.Pactera.PacteraExercise.retriever.FactsItemsRetriever;
+import com.Pactera.PacteraExercise.retriever.data.FactsItemsListener;
+import com.Pactera.PacteraExercise.retriever.data.FactsItemsRetriever;
 
 /**
  * Main Activity starts up the application main activity and sets up the ListView
@@ -30,7 +32,7 @@ public class MainActivity extends Activity implements FactsItemsListener {
 
         setupSyncButtonClick();
 
-        factsItemsRetriever.retrieveFacts();
+        updateFacts();
     }
 
     // setup the sync button so that when it is pressed the receiver goes
@@ -40,13 +42,23 @@ public class MainActivity extends Activity implements FactsItemsListener {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                factsItemsRetriever.retrieveFacts();
+                updateFacts();
             }
         });
     }
 
-    private FactsItemListAdapter setupListView() {
-        ListView factsItemsListView = (ListView) findViewById(R.id.facts_list);
+    private void updateFacts() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if ( cm.getActiveNetworkInfo() != null &&
+                cm.getActiveNetworkInfo().isConnected()) {
+
+            factsItemsRetriever.retrieveFacts();
+        };
+    }
+
+    private FactsItemListAdapter setupListView() {ListView factsItemsListView = (ListView) findViewById(R.id.facts_list);
         FactsItemListAdapter factsItemListAdapter = new FactsItemListAdapter(this);
         factsItemsListView.setAdapter(factsItemListAdapter);
         return factsItemListAdapter;

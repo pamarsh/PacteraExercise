@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.Pactera.PacteraExercise.model.FactsList;
 import com.Pactera.PacteraExercise.model.FactsRecord;
-import com.Pactera.PacteraExercise.retriever.FactsItemsListener;
+import com.Pactera.PacteraExercise.retriever.data.FactsItemsListener;
 import com.Pactera.PacteraExercise.retriever.images.ImageRetriever;
 import com.Pactera.PacteraExercise.retriever.images.ImageRetrieverFactory;
 import com.Pactera.PacteraExercise.retriever.images.ImageRetrieverListener;

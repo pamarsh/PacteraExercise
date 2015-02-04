@@ -1,4 +1,4 @@
-package com.Pactera.PacteraExercise.retriever;
+package com.Pactera.PacteraExercise.retriever.data;
 
 import android.os.AsyncTask;
 import android.util.Log;

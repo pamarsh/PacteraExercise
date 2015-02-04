@@ -1,6 +1,8 @@
-package com.Pactera.PacteraExercise.retriever;
+package com.Pactera.PacteraExercise.retriever.data;
 
 import com.Pactera.PacteraExercise.model.FactsList;
+import com.Pactera.PacteraExercise.retriever.data.AsyncFactsRetriever;
+import com.Pactera.PacteraExercise.retriever.data.FactsItemsListener;
 
 import java.util.ArrayList;
 import java.util.List;

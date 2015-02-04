@@ -1,4 +1,4 @@
-package com.Pactera.PacteraExercise.retriever;
+package com.Pactera.PacteraExercise.retriever.data;
 
 import com.Pactera.PacteraExercise.model.FactsList;
 
